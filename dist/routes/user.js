@@ -13,7 +13,7 @@ const router = (0, express_1.Router)();
  *   post:
  *     tags:
  *       - signup
- *     description: responds with user signup
+ *     description: signup a user by fields name,email,password,department,type
  *     parameters:
  *       - in: query
  *         name: name
@@ -47,6 +47,9 @@ const router = (0, express_1.Router)();
  *     responses:
  *       200:
  *         description: User signed up successfully
+ *       300:
+ *         description: User already exists
+ *
  */
 router.post("/signup", user_1.postsignup);
 /**
@@ -55,7 +58,7 @@ router.post("/signup", user_1.postsignup);
  *   post:
  *     tags:
  *       - login
- *     description: responds with user login
+ *     description: login by user
  *     parameters:
  *       - in: query
  *         name: email
@@ -76,6 +79,10 @@ router.post("/signup", user_1.postsignup);
  *     responses:
  *       200:
  *         description: User loggedin  successfully
+ *       401:
+ *         description: check your password
+ *       404:
+ *         description: email not exists
  */
 router.post("/login", user_1.postLogin);
 /**
@@ -118,6 +125,10 @@ router.post("/login", user_1.postLogin);
  *     responses:
  *       200:
  *         description: User added successfully
+ *       401:
+ *         description: email already exist
+ *       404:
+ *         description: Unauthorized access
  */
 router.post("/adduser", auth.authenticate, user_1.addUser);
 // module.exports = router;

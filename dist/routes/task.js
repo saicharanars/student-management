@@ -41,7 +41,9 @@ const router = (0, express_1.Router)();
  *             $ref: "#/components/schemas/taskinput"
  *     responses:
  *       200:
- *         description: User signed up successfully
+ *         description: task added sucessfully
+ *       401:
+ *         description: Unauthorized acess
  */
 router.post("/addtask", auth.authenticate, task_1.addtask);
 /**
@@ -67,6 +69,8 @@ router.post("/addtask", auth.authenticate, task_1.addtask);
  *     responses:
  *       200:
  *         description: get tasks of users
+ *       401:
+ *         description: Unauthorized access
  */
 router.get("/gettasksbyuser", auth.authenticate, task_1.getTasksbyuser);
 /**

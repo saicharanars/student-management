@@ -100,7 +100,7 @@ const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
             if (find) {
                 console.log(find);
                 console.log("email already exists");
-                res.status(200).json({ users: "email already used", emailexist: find }); // This will certainly be 'Technical Lead JavaScript'
+                res.status(300).json({ emailexist: find }); // This will certainly be 'Technical Lead JavaScript'
             }
             else {
                 const hashedPassword = yield bcrypt.hash(userData.password, 10);
@@ -112,7 +112,7 @@ const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
                 });
                 const created = yield adduser.save();
                 console.log(created);
-                res.status(200).json({ users: adduser, emailexist: created });
+                res.status(200).json({ user: created });
             }
         }
     }
