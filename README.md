@@ -2,3 +2,5 @@ postman documentation url - https://documenter.getpostman.com/view/26926013/2s9Y
 environment variables
 DB_URL = "database connection url"
 PORT = portnumber
+
+app url - http://localhost:{port}
