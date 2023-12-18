@@ -4,20 +4,23 @@ const app = express();
 import userRoutes from "./routes/user";
 import taskRoutes from "./routes/task";
 import swaggerDocs from "./utils/swagger"
+import 'dotenv/config';
 app.use(express.json())
 
 app.use(userRoutes);
 app.use(taskRoutes)
-mongoose
-  .connect(
-    "mongodb+srv://saicharanars:724242726@cluster0.sexo9ar.mongodb.net/Student-Management-System?retryWrites=true&w=majority"
-  )
-  .then((result:any) => {
-    console.log("started")
-    
-    app.listen({port:4000});
-    swaggerDocs(app,4000)
-  })
-  .catch((err:string) => {
-    console.log(err);
-  });
+if (process.env.DB_URL && process.env.PORT) {
+    console.log(process.env)
+    const portal = process.env.PORT;
+    const db_url = process.env.DB_URL
+    mongoose
+        .connect(db_url)
+        .then((result: any) => {
+            console.log("Database connection established");
+            app.listen({ port: portal });
+            swaggerDocs(app, +portal);
+        })
+        .catch((err: string) => {
+            console.log("Error connecting to the database:", err);
+        });
+}

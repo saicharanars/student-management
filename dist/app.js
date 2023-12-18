@@ -9,16 +9,22 @@ const app = (0, express_1.default)();
 const user_1 = __importDefault(require("./routes/user"));
 const task_1 = __importDefault(require("./routes/task"));
 const swagger_1 = __importDefault(require("./utils/swagger"));
+require("dotenv/config");
 app.use(express_1.default.json());
 app.use(user_1.default);
 app.use(task_1.default);
-mongoose_1.default
-    .connect("mongodb+srv://saicharanars:724242726@cluster0.sexo9ar.mongodb.net/Student-Management-System?retryWrites=true&w=majority")
-    .then((result) => {
-    console.log("started");
-    app.listen({ port: 4000 });
-    (0, swagger_1.default)(app, 4000);
-})
-    .catch((err) => {
-    console.log(err);
-});
+if (process.env.DB_URL && process.env.PORT) {
+    console.log(process.env);
+    const portal = process.env.PORT;
+    const db_url = process.env.DB_URL;
+    mongoose_1.default
+        .connect(db_url)
+        .then((result) => {
+        console.log("Database connection established");
+        app.listen({ port: portal });
+        (0, swagger_1.default)(app, +portal);
+    })
+        .catch((err) => {
+        console.log("Error connecting to the database:", err);
+    });
+}
